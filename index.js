@@ -3,6 +3,13 @@ const {ApolloServer, gql} = require('apollo-server')
 const typeDefs = gql`
   type Query {
     hello: String
+    Posts: [Post]
+  }
+  type Post {
+    userId: String
+    id: ID
+    title: String
+    body: String
   }
 `
 
