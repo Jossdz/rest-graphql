@@ -11,6 +11,10 @@ class DataSource extends RESTDataSource {
 
     return posts
   }
+  async createPost(args) {
+    const post = await this.post('/posts', args)
+    return post
+  }
 }
 
 module.exports = DataSource
