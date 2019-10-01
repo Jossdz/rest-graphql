@@ -1,4 +1,5 @@
 const {ApolloServer, gql} = require('apollo-server')
+const DataSource = require('./dataSource')
 
 const typeDefs = gql`
   type Query {
@@ -15,13 +16,17 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    hello: (root, args, ctx) => 'hiiiiii'
+    hello: (root, args, ctx) => 'hiiiiii',
+    Posts: (_, __, {dataSources}) => dataSources.DataSource.getPosts()
   }
 }
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  dataSources: () => ({
+    DataSource: new DataSource()
+  })
 })
 
 server.listen().then(({url}) => {
