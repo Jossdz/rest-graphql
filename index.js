@@ -7,7 +7,7 @@ const typeDefs = gql`
     Posts: [Post]
   }
   type Mutation {
-    addPost(title: String, body: String, userId: Number): Post
+    addPost(title: String, body: String, userId: String): Post
   }
   type Post {
     userId: String
@@ -21,6 +21,10 @@ const resolvers = {
   Query: {
     hello: (root, args, ctx) => 'hiiiiii',
     Posts: (_, __, {dataSources}) => dataSources.DataSource.getPosts()
+  },
+  Mutation: {
+    addPost: async (_, args, {dataSources}) =>
+      dataSources.DataSource.createPost(args)
   }
 }
 
